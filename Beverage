@@ -1,0 +1,115 @@
+
+/**
+ * Beverage is an abstract class that has three subclasses that are
+ * alcohol, coffee, and smoothie
+ *
+ *@author Neima Abza
+ *@version 2.0
+ */
+public abstract class Beverage {
+    private String name;
+    private TYPE type;
+    private SIZE size;
+    private final double BASE_PRICE = 2.0;
+    private  final double SIZE_PRICE = 1.0;
+
+    /**
+     * Constructor for Beverage
+     * @param s String
+     * @param alcohol TYPE
+     * @param theSize SIZE
+     */
+    public Beverage(String s, TYPE alcohol, SIZE theSize) {
+        name = s;
+        type = alcohol;
+        size = theSize;
+    }
+
+    public abstract double calcPrice();
+
+    /**
+     * A toString
+     * @return name and size
+     */
+    @Override
+    public String toString() {
+        return "name='" + name +
+                ", size=" + size;
+    }
+
+    /**
+     *
+     * @param b is Beverage object
+     * @return name, size & type
+     */
+    public boolean equals(Beverage b){
+        return name.equals(b.getBevName())  && size == b.getSize() && type == b.getType() ;
+    }
+
+    /**
+     *
+     * @return BASE_PRICE
+     */
+    public double getBasePrice() {
+        return BASE_PRICE;
+    }
+
+    /**
+     *
+     * @return size
+     */
+    public SIZE getSize() {
+        return size;
+    }
+
+    /**
+     *
+     * @return SIZE_PRICE
+     */
+
+    public double getSizePrice() {
+        return SIZE_PRICE;
+    }
+
+    /**
+     *
+     * @return name
+     */
+    public String getBevName(){
+        return name;
+    }
+
+    /**
+     *
+     * @return type
+     */
+    public TYPE getType() {
+        return type;
+    }
+
+    /**
+     *
+     * @param z String
+     */
+    public void setName(String z) {
+        name = z;
+    }
+
+    /**
+     *
+     * @param x SIZE
+     */
+    public void setSize(SIZE x) {
+        size = x;
+    }
+
+    /**
+     *
+     * @param type TYPE
+     */
+    public void setType(TYPE type) {
+        this.type = type;
+    }
+
+    public abstract int getNumOfFruits();
+}
