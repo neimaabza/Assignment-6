@@ -1,0 +1,248 @@
+
+import java.util.ArrayList;
+import java.util.Random;
+
+/**
+ * The class order implements OrderInterface and Comparable
+ * @author Neima Abza
+ * @version 2.0
+ */
+public class Order implements OrderInterface, Comparable<Order>{
+    //declare private variables
+    private int orderNo;
+    private int timeOfOrder;
+    private DAY orderDay;
+    private Customer customer;
+    private final ArrayList<Beverage> beverageList;
+
+    /**
+     * Order  constructor
+     * @param i is an int variable
+     * @param d is a DAY object
+     * @param theCustomer is a Customer object
+     */
+    public Order(int i, DAY d, Customer theCustomer) {
+        orderNo = generateOrderNo();
+        timeOfOrder = i;
+        orderDay = d;
+        customer = theCustomer;
+        beverageList = new ArrayList<>();
+    }
+
+    /**
+     * GenerateOrderNo for creating a random number
+     * @return x return random number
+     */
+
+    public int generateOrderNo() {
+        Random rand = new Random();
+        int x = rand.nextInt(90000 - 10000) + 10000;
+        return x;
+    }
+
+    /**
+     * its a toString displays an information about the order number, day,
+     * time, customer name, and the beverage list
+     * @return x order number, day,time, customer name, and the beverage list
+     */
+    @Override
+    public String toString() {
+        String x ="\n" + " Order Number: " + orderNo  +", "+timeOfOrder + orderDay.toString()
+                + "\n" + customer.toString();
+        for(Beverage bev : beverageList){
+            x += "\n" + bev.toString();
+        }
+        x += "Order Total: " + calcOrderTotal();
+        return x;
+    }
+
+    /**
+     * its a boolean for the weekend
+     * @return true if orderDay == DAY.SATURDAY || orderDay == DAY.SUNDAY
+     */
+    @Override
+    public boolean isWeekend() {
+        return orderDay == DAY.SATURDAY || orderDay == DAY.SUNDAY;
+    }
+
+    /**
+     * creates a accessor with a parameter int
+     * @param numBev is an int
+     * @return beverageList.get(numBev)
+     */
+    public Beverage getBeverage(int numBev) {
+        return  beverageList.get(numBev);
+    }
+
+    /**
+     * create an int compareTo
+     * @param ord is an object Order
+     * @return Integer.compare(orderNo, ord.getOrderNo())
+     */
+    public int compareTo(Order ord){
+        return Integer.compare(orderNo, ord.getOrderNo());
+    }
+
+    /**
+     * an int accessor that gets the OrderNo
+     * @return orderNo
+     */
+    public int getOrderNo() {
+        return orderNo;
+    }
+
+    /**
+     * its an int findNumOfBeveType that takes an object TYPE as a parameter
+     * @param type the type of the beverage
+     * @return i
+     */
+    //@Override
+    public int findNumOfBeveType(TYPE type) {
+        int i = 0;
+        for(Beverage bev : beverageList){
+            if(bev.getType() == type)
+                i++;
+        }
+        return i;
+    }
+
+    /**
+     * Its a void statement that adds a new beverage that takes a
+     * String and SIZE as a parameter
+     * @param bevName beverage name
+     * @param size beverage size
+     */
+
+    public void addNewBeverage(String bevName, SIZE size) {
+        boolean x = false;
+        if(orderDay == DAY.SATURDAY || orderDay == DAY.SUNDAY)
+            x = true;
+        Alcohol theAlcohol = new Alcohol(bevName, size, x);
+        beverageList.add(theAlcohol);
+    }
+
+    /**
+     * Its a void statement that adds a new beverage that takes String, SIZE,
+     * int, and boolean as a parameter
+     * @param bevName beverage name
+     * @param size beverage size
+     * @param numOfFruits number of fruits added
+     * @param addProtien added protein
+     */
+    //@Override
+    public void addNewBeverage(String bevName, SIZE size, int numOfFruits, boolean addProtien) {
+        Smoothie theSmoothie = new Smoothie(bevName, numOfFruits, size, addProtien);
+        beverageList.add(theSmoothie);
+    }
+
+    /**
+     * Its a void statement that adds a new beverage that takes String, SIZE,
+     * boolean, and boolean as a parameter
+     * @param bevName beverage name
+     * @param size beverage size of type SIZE
+     * @param extraShot true if the coffee beverage has extra shot , false otherwise
+     * @param extraSyrup true if the coffee beverage has extra syrup , false otherwise
+     */
+    //@Override
+    public void addNewBeverage(String bevName, SIZE size, boolean extraShot, boolean extraSyrup) {
+        Coffee theCoffee = new Coffee(bevName, size, extraShot, extraSyrup);
+        beverageList.add(theCoffee);
+    }
+
+    /**
+     * its a double that does not take an argument and calculates the total Order
+     * @return totalOrder
+     */
+   // @Override
+    public double calcOrderTotal() {
+        double totalOrder = 0;
+        for(Beverage bev : beverageList){
+            totalOrder += bev.calcPrice();
+        }
+        return totalOrder;
+    }
+
+    /**
+     *
+     * @return beverageList.size
+     */
+    public int getTotalItems(){
+        return beverageList.size();
+    }
+
+    /*public int getNumOfOrder() {
+        return numOfOrder;
+    }*/
+
+    /*public int getTimeOfOrder() {
+        return timeOfOrder;
+    }*/
+
+    /**
+     *
+     * @return orderDay
+     */
+
+    public DAY getOrderDay() {
+        return orderDay;
+    }
+
+    //@Override
+
+    /**
+     *
+     * @return customer
+     */
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    /**
+     *
+     * @return beverageList
+     */
+    public ArrayList<Beverage> getBeverageList() {
+        return beverageList;
+    }
+
+    /**
+     *
+     * @param num an int set for orderNo
+     */
+    public void setOrderNum(int num) {
+       orderNo = num;
+    }
+
+    /**
+     *
+     * @param time int for time of order
+     */
+    public void setTimeOfOrder(int time) {
+        timeOfOrder = time;
+    }
+
+    /**
+     *
+     * @param day DAY for day of order
+     */
+
+    public void setOrderDay(DAY day) {
+        orderDay = day;
+    }
+
+    /**
+     *
+     * @param c is for Customer
+     */
+    public void setCustomer(Customer c) {
+       customer = c;
+    }
+
+    /**
+     *
+     * @return timeOfOrder
+     */
+    public int getOrderTime() {
+        return timeOfOrder;
+    }
+}
