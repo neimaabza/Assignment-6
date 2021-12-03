@@ -1,0 +1,116 @@
+
+import java.util.Objects;
+
+/**
+ *The Alcohol class extends the abstract class Beverage
+ * it is the subclass of Beverage
+ * @author Neima Abza
+ * @version 2.0
+ *
+ */
+public class Alcohol extends Beverage {
+    // create variables and initializations
+    private boolean isWeekend;
+    private final double  WEEKEND_FEE  = 0.60;
+    private boolean getIsWeekend;
+
+    /**
+     * It is a constructor for Alcohol that takes the parameter for String, SIZE, and boolean
+     * @param s is a string
+     * @param theSize is a size
+     * @param x is a boolean
+     */
+    public Alcohol(String s, SIZE theSize, boolean x) {
+        super(s, TYPE.ALCOHOL, theSize);
+        isWeekend = x;
+    }
+
+    /**
+     * Its a toString that display
+     * @return x
+     */
+    @Override
+    public String toString() {
+        String x = getBevName() +", " + getSize();
+        if(isWeekend)
+            x += "Weekend";
+        x += ", $" + calcPrice();
+        return x;
+    }
+
+    /**
+     * its a boolean Accessor
+     * @return false
+     */
+    //@Override
+    public boolean getAddPRotien() {
+        return false;
+    }
+
+    /**
+     * its an int Accessor
+     * @return 0
+     */
+    @Override
+    public int getNumOfFruits() {
+        return 0;
+    }
+
+    /**
+     *
+     * @param o is Alcohol object
+     * @return super.equals(o) && isWeekend == o.getIsWeekend
+     */
+   // @Override
+    public boolean equals(Alcohol o) {
+        return super.equals(o) && isWeekend == o.getIsWeekend;
+    }
+
+    /**
+     * Overridden calPrice method
+     * @return theCalcPrice
+     */
+    @Override
+    public double calcPrice() {
+        //declare a variable
+        double theCalcPrice;
+        // initialize theCalcPrice
+        theCalcPrice = super.getBasePrice();
+        // create an if-else statement
+        if(super.getSize() == SIZE.MEDIUM){
+            theCalcPrice += super.getSizePrice();
+        }
+        else if(super.getSize() == SIZE.LARGE)
+            theCalcPrice += 2 * super.getSizePrice();
+        //create an if statement
+        if(isWeekend)
+            theCalcPrice += WEEKEND_FEE;
+
+        return theCalcPrice;
+    }
+
+    /**
+     * create a boolean method
+     * @return isWeekend
+     */
+    public boolean getIsWeekend() {
+        return isWeekend;
+    }
+
+    /**
+     * create a double method
+     * @return WEEKEND_FEE
+     */
+    public double getWEEKEND_FEE() {
+        return WEEKEND_FEE;
+    }
+
+    /**
+     * create a mutator that takes a parameter of boolean
+     * @param weekend is a boolean
+     */
+    public void setWeekend(boolean weekend) {
+        isWeekend = weekend;
+    }
+}
+
