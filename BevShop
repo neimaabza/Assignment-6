@@ -1,0 +1,243 @@
+
+
+
+import java.util.ArrayList;
+
+/**
+ * The class BevShop implements the BevShopInterface
+ * @author Neima Abza
+ * @version 2.0
+ */
+public  class BevShop implements BevShopInterfce {
+    //declare variable
+    private int numOfAlcoholDrink;
+    private int order;
+    private final ArrayList<Order> theOrder;
+
+    /**
+     * BevShop constructor
+     */
+    public BevShop() {
+        theOrder = new ArrayList<>();
+    }
+
+    /**
+     * a toString that displays information of monthly sale
+     * @return Total Monthly Sale and all the orders
+     */
+    @Override
+    public String toString() {
+        String x = "Total Monthly Sale";
+        for(Order i: theOrder)
+            x += i.toString();
+        x +=  totalMonthlySale();
+        //"Total Sale: " +
+        return x;
+    }
+
+    /**
+     *
+     * @return MAX_ORDER_FOR_ALCOHOL
+     */
+    public int getMaxOrderForAlcohol() {
+        return MAX_ORDER_FOR_ALCOHOL;
+    }
+
+    /**
+     *
+     * @param age the age
+     * @return true if age >= MIN_AGE_FOR_ALCOHOL
+     */
+   // @Override
+    public boolean validAge(int age) {
+        return age >= MIN_AGE_FOR_ALCOHOL;
+    }
+
+    /**
+     *
+     * @param theTime is an int
+     * @return true if theTime <= MAX_TIME && theTime >= MIN_TIME
+     */
+
+    public boolean validTime(int theTime){
+        return theTime <= MAX_TIME && theTime >= MIN_TIME;
+    }
+
+    /**
+     *
+     * @return MIN_AGE_FOR_ALCOHOL
+     */
+    public int getMinAgeForAlcohol() {
+        return MIN_AGE_FOR_ALCOHOL;
+    }
+
+    /**
+     *
+     * @return true if numOfAlcoholDrink < 3
+     */
+    @Override
+    public boolean eligibleForMore() {
+        return numOfAlcoholDrink < 3;
+    }
+
+    /**
+     *
+     * @param i is int
+     * @return i > MAX_FRUIT
+     */
+    public boolean isMaxFruit(int i){
+        return i > MAX_FRUIT;
+    }
+
+    /**
+     *
+     * @param i is an int
+     * @param day day of the order of type DAY
+     * @param customerName customer name
+     * @param customerAge customer age
+     */
+    public void startNewOrder(int i, DAY day, String customerName, int customerAge){
+        numOfAlcoholDrink = 0;
+        Customer theCustomer = new Customer(customerName, customerAge);
+        Order ord = new Order(i, day, theCustomer);
+        theOrder.add(ord);
+        order = theOrder.indexOf(ord);
+    }
+
+    /**
+     *
+     * @param bevName beverage name
+     * @param size beverage size
+     */
+    //@Override
+    public void processAlcoholOrder(String bevName, SIZE size) {
+        theOrder.get(order).addNewBeverage(bevName, size);
+        numOfAlcoholDrink++;
+    }
+
+    /**
+     *
+     * @param bevName beverage name
+     * @param size beverage size
+     * @param extraShot true if the coffee beverage has extra shot , false otherwise
+     * @param extraSyrup true if the coffee beverage has extra syrup , false otherwise
+     */
+    //@Override
+    public void processCoffeeOrder(String bevName,SIZE size, boolean extraShot,boolean extraSyrup) {
+        theOrder.get(order).addNewBeverage(bevName,size, extraShot, extraSyrup);
+    }
+
+    /**
+     *
+     * @param bevName beverage name
+     * @param size beverage size
+     * @param numOfFruits number of fruits to be added
+     * @param addProtein true if protein is added
+     */
+    @Override
+    public void processSmoothieOrder(String bevName, SIZE size, int numOfFruits, boolean addProtein) {
+        theOrder.get(order).addNewBeverage(bevName, size,
+                numOfFruits, addProtein);
+    }
+
+    /**
+     *
+     * @param numOfOrder is an int
+     * @return -1
+     */
+    //@Override
+    public int findOrder(int numOfOrder) {
+        for(int i = 0; i < theOrder.size(); i++){
+            if(theOrder.get(i).getOrderNo() == numOfOrder) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     *
+     * @return theOrder.get(order)
+     */
+    public Order getCurrentOrder() {
+        return theOrder.get(order);
+    }
+
+    /**
+     *
+     * @param num is an int
+     * @return i
+     */
+    public double totalOrderPrice(int num){
+        double i = 0;
+        for(Order b : theOrder){
+            if(b.getOrderNo() == num){
+                for(Beverage bev : b.getBeverageList())
+                    i += bev.calcPrice();
+
+            }
+        }
+        return  i;
+    }
+
+    /**
+     *
+     * @return total
+     */
+    @Override
+    public double totalMonthlySale() {
+        double total = 0;
+        for(Order x : theOrder){
+            for(Beverage bev : x.getBeverageList()){
+                total += bev.calcPrice();
+            }
+        }
+        return total;
+    }
+
+    /**
+     *
+     * @return theOrder.size()
+     */
+    public int totalNumOfMonthlyOrders(){
+        return theOrder.size();
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void sortOrders() {
+       //int x = 0;
+        for(int i = 0; i < theOrder.size()-1; i++){
+             int x = i;
+            for(int j = i+1; j < theOrder.size(); j++){
+                if(theOrder.get(j).getOrderNo() < 
+                        theOrder.get(x).getOrderNo())
+                    x = j;
+            }
+            Order o = theOrder.get(x);
+            theOrder.set(x, theOrder.get(i));
+            theOrder.set(i, o);
+        }
+    }
+
+    /**
+     *
+     * @param index is an int
+     * @return theOrder.get(index)
+     */
+    @Override
+    public Order getOrderAtIndex(int index) {
+        return theOrder.get(index);
+    }
+
+    /**
+     *
+     * @return numOfAlcoholDrink
+     */
+    public int getNumOfAlcoholDrink() {
+        return numOfAlcoholDrink;
+    }
+
+}
