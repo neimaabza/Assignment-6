@@ -1,0 +1,74 @@
+
+/**
+ * @author Neima Abza
+ * @version 2.0
+ */
+public class Customer {
+    private String name;
+    private int age;
+
+    /**
+     *constructor for customer
+     * @param customerName name of customer
+     * @param customerAge age of customer
+     */
+    public Customer(String customerName, int customerAge) {
+        name = customerName;
+        age = customerAge;
+    }
+
+    /**
+     *
+     * @param theCustomer an object Customer
+     */
+    public Customer(Customer theCustomer) {
+        name = theCustomer.getName();
+        age = theCustomer.getAge();
+    }
+
+    /**
+     *
+     * @return name and age of customer
+     */
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "nameOfCustomer='" + name + '\'' +
+                ", ageOfCustomer=" + age +
+                '}';
+    }
+
+    /**
+     *
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     *
+     * @return age
+     */
+    public int getAge() {
+        return age;
+    }
+
+    /**
+     *
+     * @param a is a string set for name
+     */
+    public void setName(String a) {
+        a = "John";
+        name = a;
+    }
+
+    /**
+     *
+     * @param i is an int set for age
+     */
+    public void setAge(int i) {
+        i = 23;
+        age = i;
+    }
+}
