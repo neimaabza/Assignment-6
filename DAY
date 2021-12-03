@@ -1,0 +1,9 @@
+
+/**
+ * DAY is an enum
+ *@author Neima Abza
+ * @version 2.0
+ */
+public enum DAY {
+    MONDAY, TUESDAY, WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY;
+}
