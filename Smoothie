@@ -1,0 +1,148 @@
+
+/**
+ * The smoothie is a subclass of Beverage and it extends the abstract class beverage
+ *@author Neima Abza
+ * @version 2.0
+ */
+public class Smoothie extends Beverage {
+    //declare private variables
+    private int fruits;
+    private boolean addProtein;
+    private final double ADDING_FRUIT_COST = 0.50;
+    private final double ADDING_PROTEIN_COST = 1.50;
+
+    /**
+     * Constructor for smoothie
+     * @param s is a string
+     * @param i is an int
+     * @param theSize is an Object size
+     * @param x is a boolean
+     */
+    public Smoothie(String s, int i, SIZE theSize, boolean x) {
+        super(s, TYPE.SMOOTHIE, theSize);
+        fruits = i;
+        addProtein = x;
+    }
+
+    /**
+     * constructor for Smoothie
+     * @param detox is a string
+     * @param medium is the size
+     * @param i is an int
+     * @param x is a boolean
+     */
+    public Smoothie(String detox, SIZE medium, int i, boolean x) {
+        super(detox, TYPE.SMOOTHIE, medium);
+        fruits = i;
+        addProtein = x;
+    }
+
+    /**
+     *
+     * @return x beverage name, size, and price
+     */
+    @Override
+    public String toString() {
+        String x = getBevName() +", " + getSize();
+        if(addProtein)
+            x += "Added Protein Powder";
+        return x += calcPrice();
+
+    }
+
+    /**
+     *
+     * @return addProtein
+     */
+    //@Override
+    public boolean getAddProtien() {
+        return addProtein;
+    }
+
+    /**
+     *
+     * @return fruits
+     */
+    @Override
+    public int getNumOfFruits() {
+        return fruits;
+    }
+
+    /**
+     *
+     * @param theSmoothie is a Smoothie
+     * @return super.equals(theSmoothie) &&
+     *                 addProtein == theSmoothie.getAddProtein() &&
+     *                 fruits == theSmoothie.getFruits();
+     */
+    public boolean equals(Smoothie theSmoothie) {
+        return super.equals(theSmoothie) &&
+                addProtein == theSmoothie.getAddProtein() &&
+                fruits == theSmoothie.getFruits();
+    }
+
+    /**
+     *
+     * @return theCalcPrice
+     */
+    public double calcPrice() {
+        double theCalcPrice;
+        theCalcPrice = super.getBasePrice();
+        if(super.getSize() == SIZE.MEDIUM)
+            theCalcPrice += super.getSizePrice();
+        else if(super.getSize() == SIZE.LARGE)
+            theCalcPrice += 2 * super.getSizePrice();
+        theCalcPrice += fruits * ADDING_FRUIT_COST;
+        if(addProtein)
+            theCalcPrice += ADDING_PROTEIN_COST;
+        return theCalcPrice;
+    }
+
+    /**
+     *
+     * @return fruits
+     */
+    public int getFruits() {
+        return fruits;
+    }
+
+    /**
+     *
+     * @param fruits is an int
+     */
+    public void setFruits(int fruits) {
+        this.fruits = fruits;
+    }
+
+    /**
+     *
+     * @return addProtein
+     */
+    public boolean getAddProtein() {
+        return addProtein;
+    }
+
+    /**
+     *
+     * @param addProtein is a boolean
+     */
+    public void setAddProtein(boolean addProtein) {
+        this.addProtein = addProtein;
+    }
+
+    /**
+     *
+     * @return ADDING_FRUIT_COST
+     */
+    public double getADDING_FRUIT_COST() {
+        return ADDING_FRUIT_COST;
+    }
+
+    /**
+     *
+     * @return ADDING_PROTEIN_COST
+     */
+    public double getADDING_PROTEIN_COST() {
+        return ADDING_PROTEIN_COST;
+    }
+}
